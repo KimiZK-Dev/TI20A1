@@ -1072,12 +1072,21 @@ function startIntro(){
 })();
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const musicBtn = document.getElementById('music-toggle-btn');
   const bgMusic = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-toggle-btn');
   let isPlaying = false;
 
-  // 1. Xử lý bấm nút góc trái
+  // 1. Hàm cố gắng phát nhạc chủ động ngay lập tức
+  function forcePlayMusic() {
+    bgMusic.play().then(() => {
+      isPlaying = true;
+      musicBtn.innerHTML = '⏸ Tắt nhạc';
+    }).catch(err => {
+      console.log("Trình duyệt chặn autoplay lần đầu, chờ tương tác ngầm:", err);
+    });
+  }
+
+  // 2. Xử lý nút bấm thủ công ở góc trái
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (isPlaying) {
@@ -1088,26 +1097,28 @@ document.addEventListener('DOMContentLoaded', () => {
       bgMusic.play().then(() => {
         musicBtn.innerHTML = '⏸ Tắt nhạc';
         isPlaying = true;
-      }).catch(err => console.log("Không phát được:", err));
+      });
     }
   });
 
-  // 2. Chạm/Click bất kỳ đâu lần đầu để mở khóa nhạc tự động
-  const unlockAndPlay = () => {
+  // 3. Kích hoạt tự động chạy ngay khi trang vừa sẵn sàng
+  window.addEventListener('load', () => {
+    forcePlayMusic();
+  });
+
+  // Dự phòng: Mở khóa ngay lập tức bằng mọi thao tác chạm/click đầu tiên nếu bị chặn cứng
+  const unlockOnFirstTouch = () => {
     if (!isPlaying) {
-      bgMusic.play().then(() => {
-        isPlaying = true;
-        musicBtn.innerHTML = '⏸ Tắt nhạc';
-        // Gỡ bỏ sự kiện sau khi đã kích hoạt thành công
-        window.removeEventListener('click', unlockAndPlay);
-        window.removeEventListener('touchstart', unlockAndPlay);
-      }).catch(() => {});
+      forcePlayMusic();
     }
+    window.removeEventListener('click', unlockOnFirstTouch);
+    window.removeEventListener('touchstart', unlockOnFirstTouch);
+    window.removeEventListener('scroll', unlockOnFirstTouch);
   };
 
-  window.addEventListener('click', unlockAndPlay);
-  window.addEventListener('touchstart', unlockAndPlay);
-});
+  window.addEventListener('click', unlockOnFirstTouch);
+  window.addEventListener('touchstart', unlockOnFirstTouch);
+  window.addEventListener('scroll', unlockOnFirstTouch);
 </script>
 </body>
 </html>
