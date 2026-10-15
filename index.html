@@ -1071,31 +1071,13 @@ function startIntro(){
   setTimeout(startIntro,220);
 })();
 </script>
-  <script>
+ <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const bgMusic = document.getElementById('bg-music');
   const musicBtn = document.getElementById('music-toggle-btn');
+  const bgMusic = document.getElementById('bg-music');
   let isPlaying = false;
 
-  // Ép phát nhạc chính ngay khi trang vừa tải xong nhờ trick âm thanh ẩn
-  setTimeout(() => {
-    bgMusic.play().then(() => {
-      isPlaying = true;
-      musicBtn.innerHTML = '⏸ Tắt nhạc';
-    }).catch(err => {
-      console.log("Trình duyệt vẫn chặn nghiêm ngặt:", err);
-      // Dự phòng: Nếu vẫn bị chặn, chỉ cần click đầu tiên là phát
-      const fallbackPlay = () => {
-        bgMusic.play();
-        isPlaying = true;
-        musicBtn.innerHTML = '⏸ Tắt nhạc';
-        window.removeEventListener('click', fallbackPlay);
-      };
-      window.addEventListener('click', fallbackPlay);
-    });
-  }, 300);
-
-  // Xử lý nút bấm thủ công ở góc trái
+  // Xử lý bật/tắt khi bấm vào nút ở góc trái
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (isPlaying) {
@@ -1107,6 +1089,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     isPlaying = !isPlaying;
   });
+
+  // Tự động kích hoạt phát nhạc ngay khi người dùng có bất kỳ tương tác đầu tiên nào trên trang
+  const firstInteract = () => {
+    if (!isPlaying) {
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicBtn.innerHTML = '⏸ Tắt nhạc';
+      }).catch(() => {});
+    }
+    window.removeEventListener('click', firstInteract);
+    window.removeEventListener('touchstart', firstInteract);
+    window.removeEventListener('scroll', firstInteract);
+  };
+
+  window.addEventListener('click', firstInteract);
+  window.addEventListener('touchstart', firstInteract);
+  window.addEventListener('scroll', firstInteract);
 });
 </script>
 </body>
