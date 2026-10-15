@@ -1070,51 +1070,52 @@ function startIntro(){
 </script>
   <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const musicBtn = document.getElementById('music-toggle-btn');
   const bgMusic = document.getElementById('bg-music');
-  let isPlaying = false;
+  const musicBtn = document.getElementById('music-toggle-btn');
+  
+  // Thiết lập thuộc tính autoplay bằng code
+  bgMusic.autoplay = true;
+  bgMusic.muted = false;
 
-  // Hàm phát nhạc
-  function playMusic() {
+  // Cố gắng kích hoạt phát nhạc ngầm ngay lập tức
+  const attemptPlay = () => {
     bgMusic.play().then(() => {
-      isPlaying = true;
+      // Nếu trình duyệt đồng ý cho phát luôn
       musicBtn.innerHTML = '⏸ Tắt nhạc';
-    }).catch(error => {
-      console.log("Chưa thể phát nhạc:", error);
+      window.isPlaying = true;
+    }).catch(() => {
+      // Nếu trình duyệt chặn, tạo một sự kiện "chạm" ảo ngầm để mở khóa
+      const unlockAudio = () => {
+        bgMusic.play();
+        musicBtn.innerHTML = '⏸ Tắt nhạc';
+        window.isPlaying = true;
+        document.removeEventListener('click', unlockAudio);
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('scroll', unlockAudio);
+      };
+      
+      document.addEventListener('click', unlockAudio, { once: true });
+      document.addEventListener('touchstart', unlockAudio, { once: true });
+      document.addEventListener('scroll', unlockAudio, { once: true });
     });
-  }
-
-  // Hàm dừng nhạc
-  function pauseMusic() {
-    bgMusic.pause();
-    isPlaying = false;
-    musicBtn.innerHTML = '🎵 Bật nhạc';
-  }
-
-  // Khi bấm vào nút điều khiển góc trái
-  musicBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Tránh bị xung đột sự kiện click với màn hình
-    if (isPlaying) {
-      pauseMusic();
-    } else {
-      playMusic();
-    }
-  });
-
-  // TỰ ĐỘNG BẬT NHẠC: Ngay khi người dùng chạm/click lần đầu tiên vào bất kỳ đâu trên trang web
-  const triggerFirstPlay = () => {
-    if (!isPlaying) {
-      playMusic();
-    }
-    // Sau khi đã kích hoạt lần đầu thì gỡ bỏ sự kiện này đi
-    window.removeEventListener('click', triggerFirstPlay);
-    window.removeEventListener('keydown', triggerFirstPlay);
-    window.removeEventListener('touchstart', triggerFirstPlay);
   };
 
-  window.addEventListener('click', triggerFirstPlay);
-  window.addEventListener('keydown', triggerFirstPlay);
-  window.addEventListener('touchstart', triggerFirstPlay);
+  attemptPlay();
+
+  // Xử lý nút bấm thủ công góc trái
+  window.isPlaying = false;
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (window.isPlaying) {
+      bgMusic.pause();
+      musicBtn.innerHTML = '🎵 Bật nhạc';
+      window.isPlaying = false;
+    } else {
+      bgMusic.play();
+      musicBtn.innerHTML = '⏸ Tắt nhạc';
+      window.isPlaying = true;
+    }
+  });
 });
 </script>
 </body>
