@@ -354,6 +354,22 @@
       animation: none;
     }
 
+    /* Icon đổi theo trạng thái nhạc; các hiệu ứng và bố cục khác giữ nguyên */
+    .btn.is-playing .btn-svg {
+      color: #D63384;
+      fill: #D63384; /* Hồng đậm khi nhạc đang phát */
+    }
+
+    .btn.is-paused .btn-svg {
+      color: #FFF0F5;
+      fill: #FFF0F5;
+    }
+
+    .btn-svg .icon-play { display: none; }
+    .btn-svg .icon-note { display: block; }
+    .btn.is-paused .btn-svg .icon-note { display: none; }
+    .btn.is-paused .btn-svg .icon-play { display: block; }
+
 @media (min-width: 768px) {
   .btn { padding-left: 16px; padding-right: 16px; }
 }
@@ -983,7 +999,8 @@ button{font:inherit}
 <div class="btn-wrapper">
   <button id="music-toggle-btn" class="btn is-paused" type="button" aria-label="Bật nhạc" title="Bật nhạc">
     <svg class="btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-      <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      <path class="icon-note" fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      <path class="icon-play" fill="currentColor" d="M8 5.5v13L18 12 8 5.5z"/>
     </svg>
     <div class="txt-wrapper" aria-hidden="true">
       <div class="txt-1">
