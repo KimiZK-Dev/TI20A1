@@ -986,12 +986,24 @@ button{font:inherit}
 
 
 /* Màn hình chào + nút Liquid Metal; tất cả selector được tách riêng khỏi trang chính */
-.welcome-screen{
-  position:fixed;inset:0;z-index:999999;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:12px;padding:24px;overflow:hidden;text-align:center;
-  color:#fff;background:radial-gradient(46vmax 32vmax at 50% 47%,#191b21 0%,#0e0f13 34%,#050506 62%,#000 88%);
-  transition:opacity .5s ease;
+.welcome-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px;
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    /* Thay đoạn màu gradient cũ bằng đường dẫn ảnh của bạn */
+    background: url('02.png') no-repeat center center;
+    background-size: cover; /* Giúp ảnh phủ kín toàn màn hình */
+    transition: opacity .5s ease;
+}
 }
 .welcome-screen h1{
   position:relative;z-index:2;margin:0 0 5px;
