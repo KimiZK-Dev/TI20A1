@@ -1072,21 +1072,40 @@ function startIntro(){
 })();
 </script>
 <script>
+document.addEventListener('DOMContentLoaded', () => {
   const bgMusic = document.getElementById('bg-music');
   const musicBtn = document.getElementById('music-toggle-btn');
   let isPlaying = false;
 
-  // 1. Hàm cố gắng phát nhạc chủ động ngay lập tức
-  function forcePlayMusic() {
+  // 1. Cố gắng phát nhạc ngay lập tức khi trang load xong
+  const tryAutoPlay = () => {
     bgMusic.play().then(() => {
       isPlaying = true;
       musicBtn.innerHTML = '⏸ Tắt nhạc';
-    }).catch(err => {
-      console.log("Trình duyệt chặn autoplay lần đầu, chờ tương tác ngầm:", err);
-    });
-  }
+    }).catch(() => {
+      // Nếu bị trình duyệt chặn, ép mở khóa bằng bất kỳ cú chạm/click/cuộn đầu tiên nào trên màn hình
+      const unlockAudio = () => {
+        bgMusic.play().then(() => {
+          isPlaying = true;
+          musicBtn.innerHTML = '⏸ Tắt nhạc';
+          window.removeEventListener('click', unlockAudio);
+          window.removeEventListener('touchstart', unlockAudio);
+          window.removeEventListener('scroll', unlockAudio);
+          window.removeEventListener('pointerdown', unlockAudio);
+        }).catch(() => {});
+      };
 
-  // 2. Xử lý nút bấm thủ công ở góc trái
+      window.addEventListener('click', unlockAudio, { once: true });
+      window.addEventListener('touchstart', unlockAudio, { once: true });
+      window.addEventListener('scroll', unlockAudio, { once: true });
+      window.addEventListener('pointerdown', unlockAudio, { once: true });
+    });
+  };
+
+  // Kích hoạt sau một khoảng trễ nhỏ để trang tải ổn định
+  setTimeout(tryAutoPlay, 300);
+
+  // 2. Xử lý nút bấm thủ công góc trái
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (isPlaying) {
@@ -1097,28 +1116,10 @@ function startIntro(){
       bgMusic.play().then(() => {
         musicBtn.innerHTML = '⏸ Tắt nhạc';
         isPlaying = true;
-      });
+      }).catch(err => console.log("Lỗi phát nhạc:", err));
     }
   });
-
-  // 3. Kích hoạt tự động chạy ngay khi trang vừa sẵn sàng
-  window.addEventListener('load', () => {
-    forcePlayMusic();
-  });
-
-  // Dự phòng: Mở khóa ngay lập tức bằng mọi thao tác chạm/click đầu tiên nếu bị chặn cứng
-  const unlockOnFirstTouch = () => {
-    if (!isPlaying) {
-      forcePlayMusic();
-    }
-    window.removeEventListener('click', unlockOnFirstTouch);
-    window.removeEventListener('touchstart', unlockOnFirstTouch);
-    window.removeEventListener('scroll', unlockOnFirstTouch);
-  };
-
-  window.addEventListener('click', unlockOnFirstTouch);
-  window.addEventListener('touchstart', unlockOnFirstTouch);
-  window.addEventListener('scroll', unlockOnFirstTouch);
+});
 </script>
 </body>
 </html>
