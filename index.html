@@ -134,7 +134,7 @@ button{font:inherit}
 .botany.r{right:clamp(-30px,0vw,10px);bottom:10px;width:clamp(100px,12vw,200px);filter:hue-rotate(260deg) saturate(1.6)}
 @media (max-width:900px){.botany{display:none}}
 
-/* Dòng chữ hướng dẫn lật sách hai bên (Giữ nguyên trên máy tính) */
+/* ---- sketchbook hints ---- */
 .sb-hint-left, .sb-hint-right {
   position: absolute; 
   top: 40px; 
@@ -146,14 +146,25 @@ button{font:inherit}
   pointer-events: none; 
   z-index: 5; 
 }
-.sb-hint-left { left: 5%; transform: translateX(-15px); } 
-.sb-hint-right { right: 5%; transform: translateX(15px); }
+.sb-hint-left { left: 5%; } 
+.sb-hint-right { right: 5%; }
 
-/* Chỉ thu nhỏ chữ khi xem trên điện thoại (màn hình dưới 640px) */
+/* Thu nhỏ trên điện thoại */
 @media (max-width: 640px) {
   .sb-hint-left, .sb-hint-right {
-    font-size: 13px; /* Bạn có thể tăng giảm số 13px này cho vừa ý trên điện thoại */
-    top: 20px;       /* Điều chỉnh lại khoảng cách trên dưới nếu cần */
+    font-size: 13px;
+    top: 20px;
+  }
+}
+
+/* ---- plate title ---- */
+.plate .t {
+  font-family: 'BienCuong', var(--display);
+  font-size: clamp(19px, 2.1vw, 26px);
+}
+@media (max-width: 640px) {
+  .plate .t {
+    font-size: 18px;
   }
 }
 /* mũi tên lật trang: nút tròn trắng, viền gradient khi rê chuột */
