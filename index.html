@@ -1071,41 +1071,42 @@ function startIntro(){
   setTimeout(startIntro,220);
 })();
 </script>
- <script>
+<script>
 document.addEventListener('DOMContentLoaded', () => {
   const musicBtn = document.getElementById('music-toggle-btn');
   const bgMusic = document.getElementById('bg-music');
   let isPlaying = false;
 
-  // Xử lý bật/tắt khi bấm vào nút ở góc trái
+  // 1. Xử lý bấm nút góc trái
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (isPlaying) {
       bgMusic.pause();
       musicBtn.innerHTML = '🎵 Bật nhạc';
+      isPlaying = false;
     } else {
-      bgMusic.play();
-      musicBtn.innerHTML = '⏸ Tắt nhạc';
+      bgMusic.play().then(() => {
+        musicBtn.innerHTML = '⏸ Tắt nhạc';
+        isPlaying = true;
+      }).catch(err => console.log("Không phát được:", err));
     }
-    isPlaying = !isPlaying;
   });
 
-  // Tự động kích hoạt phát nhạc ngay khi người dùng có bất kỳ tương tác đầu tiên nào trên trang
-  const firstInteract = () => {
+  // 2. Chạm/Click bất kỳ đâu lần đầu để mở khóa nhạc tự động
+  const unlockAndPlay = () => {
     if (!isPlaying) {
       bgMusic.play().then(() => {
         isPlaying = true;
         musicBtn.innerHTML = '⏸ Tắt nhạc';
+        // Gỡ bỏ sự kiện sau khi đã kích hoạt thành công
+        window.removeEventListener('click', unlockAndPlay);
+        window.removeEventListener('touchstart', unlockAndPlay);
       }).catch(() => {});
     }
-    window.removeEventListener('click', firstInteract);
-    window.removeEventListener('touchstart', firstInteract);
-    window.removeEventListener('scroll', firstInteract);
   };
 
-  window.addEventListener('click', firstInteract);
-  window.addEventListener('touchstart', firstInteract);
-  window.addEventListener('scroll', firstInteract);
+  window.addEventListener('click', unlockAndPlay);
+  window.addEventListener('touchstart', unlockAndPlay);
 });
 </script>
 </body>
