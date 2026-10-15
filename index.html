@@ -134,10 +134,12 @@ button{font:inherit}
 .botany.r{right:clamp(-30px,0vw,10px);bottom:10px;width:clamp(100px,12vw,200px);filter:hue-rotate(260deg) saturate(1.6)}
 @media (max-width:900px){.botany{display:none}}
 
-/* ---- sketchbook hints ---- */
+/* Đưa chữ hướng dẫn lật sách về giữa và xuống dưới trên máy tính */
 .sb-hint-left, .sb-hint-right {
   position: absolute; 
-  top: 40px; 
+  bottom: -40px; /* Đẩy xuống phía dưới cuốn sách */
+  left: 50%;     /* Căn giữa */
+  transform: translateX(-50%); /* Cân đối chính giữa tuyệt đối */
   font-family: 'BienCuong', var(--display); 
   font-size: 18px; 
   font-style: normal; 
@@ -145,26 +147,17 @@ button{font:inherit}
   letter-spacing: .05em; 
   pointer-events: none; 
   z-index: 5; 
+  white-space: nowrap;
 }
-.sb-hint-left { left: 5%; } 
-.sb-hint-right { right: 5%; }
 
-/* Thu nhỏ trên điện thoại */
+/* Ẩn bớt một bên hoặc gộp chung nếu bạn chỉ muốn hiện 1 dòng thông báo ở giữa */
+.sb-hint-right { display: none; } /* Ẩn bớt bên phải để chỉ hiển thị 1 câu hướng dẫn ở giữa */
+
+/* Cấu hình riêng cho điện thoại nếu cần */
 @media (max-width: 640px) {
-  .sb-hint-left, .sb-hint-right {
+  .sb-hint-left {
+    bottom: -30px;
     font-size: 13px;
-    top: 20px;
-  }
-}
-
-/* ---- plate title ---- */
-.plate .t {
-  font-family: 'BienCuong', var(--display);
-  font-size: clamp(19px, 2.1vw, 26px);
-}
-@media (max-width: 640px) {
-  .plate .t {
-    font-size: 18px;
   }
 }
 /* mũi tên lật trang: nút tròn trắng, viền gradient khi rê chuột */
