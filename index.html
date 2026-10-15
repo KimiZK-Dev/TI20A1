@@ -1,4 +1,4 @@
-<!doctype html>
+qqqqqqqqqqqq<!doctype html>
 <html lang="vi">
 <head><script>function __threeuiStorageImage(...args){const image=new Image(...args);const property=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(image,"src",{configurable:true,get(){return property.get.call(this)},set(value){try{const url=new URL(value,document.baseURI);if(this.crossOrigin===null&&(url.href.startsWith("https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/")||url.origin===new URL(document.baseURI).origin))this.crossOrigin="anonymous"}catch{}property.set.call(this,value)}});return image;}
 </script>
@@ -428,12 +428,14 @@ button{font:inherit}
 .bio-link{color:var(--pink-deep);text-decoration:underline;text-decoration-color:rgba(0,191,255,.55);
   text-underline-offset:4px;transition:color .2s,text-decoration-color .2s}
 .bio-link:hover{color:var(--blue-deep);text-decoration-color:var(--pink)}
-.bloom{width:clamp(150px,17vw,260px);opacity:.95;user-select:none;align-self:center;
-  filter:hue-rotate(170deg) saturate(1.5)}
+.bloom{width:clamp(200px,25vw,350px);opacity:.95;user-select:none;align-self:center;}
 @media (max-width:760px){
   .about{grid-template-columns:1fr}
-  .bloom{width:170px;justify-self:center}
+  .bloom{width:220px;justify-self:center}
 }
+
+/* danh sách "Plates": mỗi dòng là một thẻ bo góc */
+.plates{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
 
 /* danh sách "Plates": mỗi dòng là một thẻ bo góc */
 .plates{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
@@ -524,21 +526,18 @@ button{font:inherit}
 
   <div class="rule" aria-hidden="true"></div>
 
-  <section id="loichuc" class="loichuc">
+  <section id="loichuc" class="about">
     <div>
       <p class="section-label">Lời chúc</p>
-      <p class="bio" style="font-family: 'BienCuong', sans-serif;"> Các <a class="bio-link" href="#">HOT GIRL </a> của <a class="bio-link" href="#"> YOUNG TRAINING </a>, là những cá nhân năng động, bản lĩnh và luôn tràn đầy cảm hứng. Các bạn là mảnh ghép cốt lõi của câu lạc bộ, nơi suốt thời gian qua đã không ngừng nỗ lực kiến tạo những giá trị thực — từ những chặng đường bỡ ngỡ ban đầu cho đến lúc tự tin tỏa sáng rực rỡ, chứng minh rằng mỗi cô gái đều mang một sức mạnh phi thường. Vẻ đẹp của các bạn nằm ở sự giao thoa tuyệt vời đó: đủ mạnh mẽ để dấn thân, và đủ tinh tế để thấu hiểu.Lời chúc 20/10 này chính là một nửa còn lại của bức tranh ấy — một khoảnh khắc thanh xuân được ngắm nhìn thật chậm rãi, điểm xuyết bằng tình yêu và đôi chút màu sắc rực rỡ: những nụ cười tỏa nắng, những cái ôm ấm áp, và tháng năm rực rỡ của tuổi trẻ.</p>
+      <p class="bio" style="font-family: 'BienCuong', sans-serif;"> Các <a class="bio-link" href="#">HOT GIRL </a> của <a class="bio-link" href="#"> YOUNG TRAINING </a>, là những cá nhân năng động, bản lĩnh và luôn tràn đầy cảm hứng. Các bạn là mảnh ghép cốt lõi của câu lạc bộ, nơi suốt thời gian qua đã không ngừng nỗ lực kiến tạo những giá trị thực — từ những chặng đường bỡ ngỡ ban đầu cho đến lúc tự tin tỏa sáng rực rỡ, chứng minh rằng mỗi cô gái đều mang một sức mạnh phi thường. Vẻ đẹp của các bạn nằm ở sự giao thoa tuyệt vời đó: đủ mạnh mẽ để dấn thân, và đủ tinh tế để thấu hiểu. Lời chúc 20/10 này chính là một nửa còn lại của bức tranh ấy — một khoảnh khắc thanh xuân được ngắm nhìn thật chậm rãi, điểm xuyết bằng tình yêu và đôi chút màu sắc rực rỡ: những nụ cười tỏa nắng, những cái ôm ấm áp, và tháng năm rực rỡ của tuổi trẻ.</p>
     </div>
-    <img crossorigin="anonymous" class="bloom" src="https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/339abd2c649a11f725af9114/bloom.png" alt="" aria-hidden="true">
+    <img crossorigin="anonymous" class="bloom" src="ytc.png" alt="" aria-hidden="true">
   </section>
-
   <div class="rule short" aria-hidden="true"></div>
-
-  <section id="danhsacg" class="danhsach">
+  <section id="danhsach" class="plates">
     <p class="section-label">Danh sách</p>
     <ol class="plate-list" id="plateList"></ol>
   </section>
-
   <div class="rule short" aria-hidden="true"></div>
   <p class="foot" id="contact">BienCuong · YuongTraining · <a href="#" class="bio-link">trcuongw@gmail.com</a></p>
 </main>
