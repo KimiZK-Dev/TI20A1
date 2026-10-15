@@ -631,7 +631,7 @@ const PAGES=[
   {file:'02.png',    title:'Lò Thu Thảo',           place:'18/12/2008'}
 ];
 PAGES.forEach(p=>p.url=DIR+p.file);
-const M=PAGES.length, LAND=6;
+const M=PAGES.length, LAND=13;
 
 const wrap=document.getElementById('sbWrap');
 const stage=document.getElementById('sbStage');
@@ -891,12 +891,12 @@ function startTurn(dir,t){
 function commit(){
   if(!turn)return;
   if(REDUCED){idx=turn.to;turn=null;paint();return;}
-  animateTo(1,()=>{idx=turn.to;turn=null;paint();},170,26);
+  animateTo(1,()=>{idx=turn.to;turn=null;paint();},80,26);
   kick();
 }
 function cancel(){
   if(!turn)return;
-  animateTo(0,()=>{turn=null;paint();},150,24);
+  animateTo(0,()=>{turn=null;paint();},70,24);
   kick();
 }
 function step(dir){
