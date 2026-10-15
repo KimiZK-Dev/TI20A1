@@ -158,6 +158,20 @@ button{font:inherit}
   position:relative;
   touch-action:pan-y;
 }
+  /* Dòng chữ hướng dẫn lật sách hai bên */
+.sb-hint-left, .sb-hint-right {
+  position: absolute;
+  top: -35px; /* Nằm phía trên quyển sách */
+  font-family: var(--display);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--pink-deep);
+  letter-spacing: .05em;
+  pointer-events: none;
+  z-index: 5;
+}
+.sb-hint-left { left: 5%; }
+.sb-hint-right { right: 5%; }
 /* mũi tên lật trang: nút tròn trắng, viền gradient khi rê chuột */
 .sb-arrow{
   flex:none;display:inline-flex;align-items:center;justify-content:center;padding:10px 6px;
@@ -523,6 +537,8 @@ button{font:inherit}
         <filter id="sb-mblur-2"><feGaussianBlur stdDeviation="14 0"/></filter>
       </svg>
       <div class="sb-stage" id="sbStage">
+  <span class="sb-hint-left">← Lật trái</span>
+  <span class="sb-hint-right">Lật phải →</span>
         <button class="sb-arrow left" id="sbLeft" aria-label="previous page">
           <svg viewBox="0 0 14 44" width="14" height="44" fill="none" aria-hidden="true"><polyline points="11,3 3,22 11,41" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
