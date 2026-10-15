@@ -480,15 +480,18 @@ button{font:inherit}
 </style>
 </head>
 <body>
-  <!-- Nguồn phát nhạc (ẩn) -->
-<audio id="bg-music" loop autoplay>
-  <!-- Nhớ đổi tên file music.mp3 cho khớp với file bạn tải lên -->
+  <!-- Audio chính phát bài nhạc của bạn -->
+<audio id="bg-music" loop>
   <source src="2010.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Nút điều khiển nhạc -->
+<!-- Audio ẩn để kích hoạt mở khóa tự động phát từ trình duyệt -->
+<audio id="silent-trigger" autoplay muted>
+  <source src="data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZmEAAAAUAAAAEAAAEwAAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=" type="audio/mpeg">
+</audio>
+
 <button id="music-toggle-btn" class="music-toggle-btn">
-  🎵 Bật nhạc
+  ⏸ Tắt nhạc
 </button>
 <div class="wash" aria-hidden="true"></div>
 <main class="page home">
@@ -1072,49 +1075,37 @@ function startIntro(){
 document.addEventListener('DOMContentLoaded', () => {
   const bgMusic = document.getElementById('bg-music');
   const musicBtn = document.getElementById('music-toggle-btn');
-  
-  // Thiết lập thuộc tính autoplay bằng code
-  bgMusic.autoplay = true;
-  bgMusic.muted = false;
+  let isPlaying = false;
 
-  // Cố gắng kích hoạt phát nhạc ngầm ngay lập tức
-  const attemptPlay = () => {
+  // Ép phát nhạc chính ngay khi trang vừa tải xong nhờ trick âm thanh ẩn
+  setTimeout(() => {
     bgMusic.play().then(() => {
-      // Nếu trình duyệt đồng ý cho phát luôn
+      isPlaying = true;
       musicBtn.innerHTML = '⏸ Tắt nhạc';
-      window.isPlaying = true;
-    }).catch(() => {
-      // Nếu trình duyệt chặn, tạo một sự kiện "chạm" ảo ngầm để mở khóa
-      const unlockAudio = () => {
+    }).catch(err => {
+      console.log("Trình duyệt vẫn chặn nghiêm ngặt:", err);
+      // Dự phòng: Nếu vẫn bị chặn, chỉ cần click đầu tiên là phát
+      const fallbackPlay = () => {
         bgMusic.play();
+        isPlaying = true;
         musicBtn.innerHTML = '⏸ Tắt nhạc';
-        window.isPlaying = true;
-        document.removeEventListener('click', unlockAudio);
-        document.removeEventListener('touchstart', unlockAudio);
-        document.removeEventListener('scroll', unlockAudio);
+        window.removeEventListener('click', fallbackPlay);
       };
-      
-      document.addEventListener('click', unlockAudio, { once: true });
-      document.addEventListener('touchstart', unlockAudio, { once: true });
-      document.addEventListener('scroll', unlockAudio, { once: true });
+      window.addEventListener('click', fallbackPlay);
     });
-  };
+  }, 300);
 
-  attemptPlay();
-
-  // Xử lý nút bấm thủ công góc trái
-  window.isPlaying = false;
+  // Xử lý nút bấm thủ công ở góc trái
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    if (window.isPlaying) {
+    if (isPlaying) {
       bgMusic.pause();
       musicBtn.innerHTML = '🎵 Bật nhạc';
-      window.isPlaying = false;
     } else {
       bgMusic.play();
       musicBtn.innerHTML = '⏸ Tắt nhạc';
-      window.isPlaying = true;
     }
+    isPlaying = !isPlaying;
   });
 });
 </script>
