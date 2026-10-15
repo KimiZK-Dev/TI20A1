@@ -7,6 +7,140 @@
 <title>Chúc Mừng 20/10</title>
 <meta name="description" content="Bien Cuong, MayOre — DHTI20A1HN-UNETI">
 <style>
+/* ── SYLVA DOCK NAVIGATION CSS ───────── */
+:root {
+  --u: calc(100vw / 1600);
+  --ink: #ffffff;
+  --ink-faint: rgba(255,255,255,.44);
+  --card: #f2f3ef;
+  --card-ink: #23261f;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+@media (min-width:1900px){ :root{ --u: calc(1900px / 1600); } }
+
+.dock-wrap {
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  margin: 20px 0;
+  transform: translateY(-20px);
+}
+
+.dock {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: calc(3 * var(--u));
+  height: calc(46 * var(--u));
+  padding: calc(5 * var(--u));
+  border-radius: calc(14 * var(--u));
+  border: 1px solid rgba(255,255,255,.11);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0) 50%), rgba(34,40,31,.15);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 calc(2 * var(--u)) calc(12 * var(--u)) rgba(0,0,0,.40), inset 0 1px rgba(255,255,255,.1);
+  position: relative;
+  isolation: isolate;
+}
+
+.dock-item {
+  position: relative;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  height: calc(36 * var(--u));
+  gap: calc(8 * var(--u));
+  padding: 0 calc(13 * var(--u));
+  transform-origin: 50% 0;
+  border: 1px solid transparent;
+  border-radius: calc(10 * var(--u));
+  background: rgba(255,255,255,0.15);
+  color: var(--ink-faint);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: calc(11 * var(--u));
+  font-weight: 500;
+  letter-spacing: calc(1.5 * var(--u));
+  text-transform: uppercase;
+  white-space: nowrap;
+  will-change: width, height, transform;
+  transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+}
+
+.dock-item[data-near="true"] {
+  z-index: 7;
+  color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(45, 52, 41, 0.8);
+  box-shadow: 0 calc(7 * var(--u)) calc(16 * var(--u)) rgba(0,0,0,.30);
+}
+
+.dock-item .glyph {
+  width: calc(14 * var(--u)); 
+  height: calc(14 * var(--u)); 
+  flex: none;
+  opacity: .66; 
+  transition: opacity .18s var(--ease);
+}
+
+.dock-item .glyph svg {
+  display: block; width: 100%; height: 100%;
+  fill: none; stroke: currentColor; stroke-width: 1.25;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.dock-item[data-near="true"] .glyph { opacity: 1; }
+
+.dock-item.dock-mark {
+  width: calc(36 * var(--u)); padding: 0;
+  background: #eef1e7 !important; 
+  border-color: #eef1e7 !important; 
+  color: #23261f !important;
+  overflow: hidden;
+}
+.dock-mark svg { width: 58%; height: 58%; display: block; fill: currentColor; }
+.dock-item.dock-mark[data-near="true"] { background: #fff !important; border-color: #fff !important; color: #1b1e18 !important; }
+
+.dock-item.dock-item--enter {
+  background: var(--card) !important; 
+  border-color: var(--card) !important; 
+  color: var(--card-ink) !important;
+}
+.dock-item.dock-item--enter[data-near="true"] {
+  background: #fff !important; border-color: #fff !important; color: #1b1e18 !important;
+}
+
+.dock-item.is-active:not(.dock-mark):not(.dock-item--enter) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  box-shadow: 0 calc(6 * var(--u)) calc(16 * var(--u)) rgba(0,0,0,.25);
+}
+.dock-item.is-active .glyph { opacity: 1; }
+
+[data-spec] { --spec-angle: 2.4rad; --spec-bright: 0; }
+[data-spec]::after {
+  content: ''; position: absolute; inset: -1px; z-index: 5;
+  padding: 1px; border-radius: inherit; pointer-events: none;
+  opacity: var(--spec-bright);
+  background: conic-gradient(from var(--spec-angle) at 50% 50%,
+    rgba(240,246,232,0) 0deg, rgba(240,246,232,.1) 14deg, rgba(240,246,232,.95) 28deg,
+    rgba(240,246,232,.2) 46deg, rgba(240,246,232,0) 68deg, rgba(240,246,232,0) 180deg,
+    rgba(240,246,232,.1) 194deg, rgba(240,246,232,.95) 208deg, rgba(240,246,232,.2) 226deg,
+    rgba(240,246,232,0) 248deg, rgba(240,246,232,0) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+
+@media (max-width:900px){
+  :root{ --u: calc(100vw / 760); }
+  .dock { height: max(56px, calc(58 * var(--u))); padding: max(6px, calc(6 * var(--u))); gap: max(4px, calc(4 * var(--u))); border-radius: max(17px, calc(18 * var(--u))); }
+  .dock-item { height: max(44px, calc(46 * var(--u))); width: max(44px, calc(46 * var(--u))); padding: 0; border-radius: max(12px, calc(13 * var(--u))); }
+  .dock-item span:not(.glyph){ display: none; }
+  .dock-item .glyph{ width: max(19px, calc(20 * var(--u))); height: max(19px, calc(20 * var(--u))); }
+}
 @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:block;
   src:url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/embedded/60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d.woff2) format('woff2')}
 @font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:block;
@@ -520,28 +654,64 @@ button{font:inherit}
   ⏸ Tắt nhạc
 </button>
 <div class="wash" aria-hidden="true"></div>
+
 <main class="page home">
 
   <header class="top">
 <a class="name" href="#" style="font-family: 'BienCuong01', serif; font-size: 150%; display: inline-block; padding-left: 8px;">Chúc mừng ngày phụ nữ Việt Nam 20-10</a>    
-    <nav style="margin-top: -4px;">
-    <a href="#danhsach" style="font-family: 'BienCuong', serif;">Danh sách</a>
-    <a href="#loichuc" style="font-family: 'BienCuong', serif;">Lời chúc</a>
-    <a href="#contact" style="font-family: 'BienCuong', serif;">Liên hệ</a>
-      <div class="top-socials">
-        <a href="#" class="icon-btn" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.7 2.6h3.3l-7.2 8.2 8.5 11.2h-6.7l-5.2-6.9-6 6.9H1.1l7.7-8.8L.7 2.6h6.9l4.7 6.3 5.4-6.3Zm-1.2 17.5h1.8L7.6 4.4H5.7l10.8 15.7Z"/></svg></a>
-        <a href="#" class="icon-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.9 3.5a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.1 9.3h3.6v11.6H3.1V9.3Zm6 0h3.4v1.6h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.35 4.3 5.4v6.45h-3.6v-5.72c0-1.36-.02-3.12-1.92-3.12-1.92 0-2.22 1.48-2.22 3.02v5.82H9.1V9.3Z"/></svg></a>
-        <a href="https://www.instagram.com/mayore_gfx/" class="icon-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.4"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
-        <a href="#" class="icon-btn" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.4" y="4.6" width="19.2" height="14.8" rx="2.4"/><path d="m3.2 6.4 8.8 6.6 8.8-6.6"/></svg></a>
-      </div>
-    </nav>
+    <!-- ĐOẠN MỚI THAY THẾ: -->
+<div class="dock-wrap">
+  <nav class="dock" data-spec aria-label="Primary">
+    
+    <!-- Nút Home / Đầu trang -->
+    <a class="dock-item dock-mark" data-dock data-spec href="#" aria-label="home">
+      <svg viewBox="0 0 22 24" aria-hidden="true">
+        <path d="M11 1.3c-2.1 0-3.95 1.2-4.75 2.95C3.95 4.55 2.3 6.25 2.3 8.35c0 2.3 1.9 4.2 4.3 4.2h8.8c2.4 0 4.3-1.9 4.3-4.2 0-2.1-1.65-3.8-4-4.1C14.95 2.5 13.1 1.3 11 1.3Z"/>
+        <path d="M9.6 12.55h2.8v4.2c1.35.3 2.45 1.15 3.15 2.4-1.35.4-2.4.15-3.15-.4v4.15H9.6v-4.15c-.75.55-1.8.8-3.15.4.7-1.25 1.8-2.1 3.15-2.4v-4.2Z"/>
+      </svg>
+    </a>
+
+    <!-- Lời chúc (đã đổi id khớp với trang web) -->
+    <a class="dock-item" data-dock data-spec href="#loichuc">
+      <span class="glyph" aria-hidden="true">
+        <svg viewBox="0 0 16 16"><path d="M8 14V9"/><path d="M8 9c0-2.4 1.7-4.3 4-4.3.2 2.6-1.6 4.6-4 4.3Z"/><path d="M8 10.5C7.9 8.4 6.4 6.8 4.4 6.8 4.3 8.9 5.9 10.6 8 10.5Z"/></svg>
+      </span>
+      <span>Lời chúc</span>
+    </a>
+
+    <!-- Danh sách -->
+    <a class="dock-item" data-dock data-spec href="#danhsach">
+      <span class="glyph" aria-hidden="true">
+        <svg viewBox="0 0 16 16"><path d="M4 2.4h5.3L12 5.1v8.5H4z"/><path d="M9.2 2.4V5h2.7"/><path d="M6 8.4h4M6 10.8h2.8"/></svg>
+      </span>
+      <span>Danh sách</span>
+    </a>
+
+    <!-- Liên hệ -->
+    <a class="dock-item" data-dock data-spec href="#contact">
+      <span class="glyph" aria-hidden="true">
+        <svg viewBox="0 0 16 16"><path d="M1.6 12.4c2.4-3.4 4.3-5.1 5.7-5.1 2 0 3 3.6 5 3.6 1.1 0 1.9-.5 2.4-1.4"/><path d="M4.3 6.2C5.5 4.4 6.6 3.5 7.6 3.5c1.5 0 2.2 2.4 3.7 2.4"/></svg>
+      </span>
+      <span>Liên hệ</span>
+    </a>
+
+    <!-- Nút Enter / Khám phá -->
+    <a class="dock-item dock-item--enter" data-dock data-spec href="#">
+      <span class="glyph" aria-hidden="true">
+        <svg viewBox="0 0 16 16"><path d="M6.6 2.5h5.1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6.6"/><path d="M2.6 8h6.6"/><path d="m7 5.6 2.4 2.4L7 10.4"/></svg>
+      </span>
+      <span>Enter</span>
+    </a>
+
+  </nav>
+</div>
   </header>
 
   <section id="sketchbook" class="hero">
     <img crossorigin="anonymous" class="botany l" src="https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/339abd2c649a11f725af9114/botany-left.png" alt="" aria-hidden="true">
     <img crossorigin="anonymous" class="botany r" src="https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/339abd2c649a11f725af9114/botany-right.png" alt="" aria-hidden="true">
 
-    <p class="hero-kicker">CHÚC CÁC NÀNG TI20A1HN 20-10 THẬT NHIỀU Ý NGHĨA</p>
+    <p class="hero-kicker" style="margin-top: 15px; ">CHÚC CÁC NÀNG TI20A1HN 20-10 THẬT NHIỀU Ý NGHĨA</p>
 
     <div class="sb-wrap" id="sbWrap">
       <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1149,5 +1319,149 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+<script>
+(function() {
+  const root = document.querySelector('.dock');
+  if (!root) return;
+
+  const items = Array.from(root.querySelectorAll('[data-dock]')).map(el => ({
+    el, w: 0, h: 0, v: 0, vel: 0, target: 0 
+  }));
+  const specs = Array.from(document.querySelectorAll('[data-spec]')).map(el => ({
+    el, ang: 2.4, tAng: 2.4, br: 0, tBr: 0, reach: el.classList.contains('dock') ? 250 : 185
+  }));
+
+  let aimX = 0, aimY = 0, aimSeen = false, aimMoved = false;
+  let DOCK = { on: true, live: false, dirty: false, u: 1 };
+  let SPEC = { dirty: false };
+
+  root.addEventListener('click', function(e) {
+    let clickedItem = e.target.closest('.dock-item');
+    if (!clickedItem) return;
+    
+    if (clickedItem.classList.contains('dock-mark')) {
+      items.forEach(item => item.el.classList.remove('is-active'));
+    } else if (!clickedItem.classList.contains('dock-item--enter')) {
+      items.forEach(item => item.el.classList.remove('is-active'));
+      clickedItem.classList.add('is-active');
+    }
+  });
+
+  function measureDock() {
+    DOCK.u = window.innerWidth <= 900 ? (window.innerWidth / 760) : (window.innerWidth / 1600);
+    items.forEach(st => {
+      st.el.style.width = st.el.style.height = st.el.style.transform = '';
+      st.el.dataset.near = 'false';
+      st.v = st.vel = st.target = 0;
+    });
+    items.forEach(st => {
+      let r = st.el.getBoundingClientRect();
+      st.w = r.width; st.h = r.height;
+    });
+    DOCK.live = false; DOCK.dirty = true;
+  }
+
+  function dockRest() {
+    DOCK.live = false; DOCK.dirty = true;
+    items.forEach(st => { st.target = 0; st.el.dataset.near = 'false'; });
+  }
+
+  let lastTick = performance.now();
+  function tick(now) {
+    let dt = Math.min((now - lastTick) / 1000, 0.05);
+    lastTick = now;
+
+    if (aimSeen && aimMoved) {
+      let rr = root.getBoundingClientRect();
+      if (aimX > rr.left - 48 && aimX < rr.right + 48 && aimY > rr.top - 44 && aimY < rr.bottom + 104) {
+        items.forEach(st => {
+          let r = st.el.getBoundingClientRect();
+          let clamp = (val, min, max) => Math.max(min, Math.min(max, val));
+          let prox = clamp(1 - Math.abs(aimX - (r.left + r.width * 0.5)) / (128 * DOCK.u), 0, 1);
+          st.target = prox * prox * (3 - 2 * prox); 
+          st.el.dataset.near = st.target > 0.08 ? 'true' : 'false';
+        });
+        DOCK.live = DOCK.dirty = true;
+      } else if (DOCK.live) {
+        dockRest();
+      }
+    }
+
+    if (DOCK.dirty) {
+      let moving = false;
+      items.forEach(st => {
+        st.vel += (st.target - st.v) * 190 * dt;
+        st.vel *= Math.exp(-23 * dt);
+        st.v += st.vel * dt;
+        if (Math.abs(st.target - st.v) < 0.001 && Math.abs(st.vel) < 0.004) { st.v = st.target; st.vel = 0; }
+        else moving = true;
+
+        let v = Math.min(Math.max(st.v, 0), 1.08);
+        let mark = st.el.classList.contains('dock-mark');
+        let ew = mark ? 14 * DOCK.u : Math.min(18 * DOCK.u, st.w * 0.24);
+        let eh = mark ? 14 * DOCK.u : 16 * DOCK.u;
+        st.el.style.width = (st.w + ew * v).toFixed(2) + 'px';
+        st.el.style.height = (st.h + eh * v).toFixed(2) + 'px';
+        st.el.style.transform = `translateY(${(v * 3.5 * DOCK.u).toFixed(2)}px)`;
+      });
+      if (!moving) DOCK.dirty = false;
+    }
+
+    if (aimSeen && aimMoved) {
+      specs.forEach(st => {
+        let r = st.el.getBoundingClientRect();
+        let cx = r.left + r.width * 0.5, cy = r.top + r.height * 0.5;
+        let dx = Math.max(r.left - aimX, 0, aimX - r.right);
+        let dy = Math.max(r.top - aimY, 0, aimY - r.bottom);
+        let d = Math.sqrt(dx * dx + dy * dy);
+        
+        st.tAng = d === 0 ? 0 : Math.atan2(cy - aimY, aimX - cx);
+        let clamp = (val, min, max) => Math.max(min, Math.min(max, val));
+        let raw = clamp(1 - d / (st.reach * DOCK.u), 0, 1);
+        st.tBr = Math.max(raw * raw * (3 - 2 * raw), 0);
+      });
+      SPEC.dirty = true;
+    }
+
+    if (SPEC.dirty) {
+      let moving = false;
+      specs.forEach(st => {
+        let diff = ((st.tAng - st.ang + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+        st.ang += diff * (1 - Math.exp(-dt * 8));
+        st.br += (st.tBr - st.br) * (1 - Math.exp(-dt * 9));
+        if (Math.abs(diff) < 0.001 && Math.abs(st.tBr - st.br) < 0.002) { st.ang = st.tAng; st.br = st.tBr; }
+        else moving = true;
+        
+        st.el.style.setProperty('--spec-angle', st.ang.toFixed(4) + 'rad');
+        let clamp = (val, min, max) => Math.max(min, Math.min(max, val));
+        st.el.style.setProperty('--spec-bright', (clamp(st.br, 0, 1) * 0.92).toFixed(3));
+      });
+      if (!moving) SPEC.dirty = false;
+    }
+
+    aimMoved = false;
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('pointermove', e => {
+    aimX = e.clientX; aimY = e.clientY; 
+    aimSeen = aimMoved = true;
+    DOCK.dirty = SPEC.dirty = true;
+  });
+
+  window.addEventListener('pointerleave', () => {
+    aimSeen = false; dockRest();
+    specs.forEach(st => st.tBr = 0);
+    SPEC.dirty = true;
+  });
+
+  window.addEventListener('resize', measureDock);
+  if(document.fonts) document.fonts.ready.then(measureDock);
+  else setTimeout(measureDock, 100);
+
+  requestAnimationFrame(tick);
+})();
+</script>
+
 </body>
 </html>
