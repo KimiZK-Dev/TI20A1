@@ -170,8 +170,14 @@ button{font:inherit}
   pointer-events: none;
   z-index: 5;
 }
-.sb-hint-left { left: 5%; }
-.sb-hint-right { right: 5%; }
+.sb-hint-left { 
+  left: 5%; 
+  transform: translateX(-15px); /* Kéo lùi sang trái 15px */
+} 
+.sb-hint-right { 
+  right: 5%; 
+  transform: translateX(15px); /* Kéo dịch nếu cần */
+}
 /* mũi tên lật trang: nút tròn trắng, viền gradient khi rê chuột */
 .sb-arrow{
   flex:none;display:inline-flex;align-items:center;justify-content:center;padding:10px 6px;
