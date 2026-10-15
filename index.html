@@ -134,36 +134,10 @@ button{font:inherit}
 .botany.r{right:clamp(-30px,0vw,10px);bottom:10px;width:clamp(100px,12vw,200px);filter:hue-rotate(260deg) saturate(1.6)}
 @media (max-width:900px){.botany{display:none}}
 
-/* Dòng chữ nhỏ trên cùng: dạng "viên thuốc" gradient */
-.hero-kicker{
-  font-size:12px;font-weight:500;letter-spacing:var(--track-caps);text-align:center;
-  color:#fff;margin:0 0 clamp(22px,3.4vh,40px);text-transform:uppercase;
-  background:var(--grad);padding:9px 20px;border-radius:999px;box-shadow:var(--shadow);
-}
-.hero-down{
-  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);border:0;background:transparent;
-  padding:10px 14px;color:var(--pink-deep);cursor:pointer;-webkit-tap-highlight-color:transparent;
-  animation:cue-breathe 2.6s ease-in-out infinite;z-index:3;
-}
-.hero-down:hover{animation:none;opacity:1}
-@keyframes cue-breathe{0%,100%{opacity:.25}50%{opacity:.9}}
-@media (prefers-reduced-motion:reduce){.hero-down{animation:none;opacity:.6}}
-
-/* ---------------- sketchbook ---------------- */
-.hero,.hero *{-webkit-user-select:none;-moz-user-select:none;user-select:none}
-.hero img{-webkit-user-drag:none;user-drag:none}
-.sb-wrap{display:grid;justify-items:center;gap:20px;width:100%;position:relative;z-index:2}
-.sb-stage{
-  display:flex;align-items:center;justify-content:center;width:100%;
-  position:relative;
-  touch-action:pan-y;
-}
- /* Đưa chữ hướng dẫn lật sách về giữa và xuống dưới trên máy tính */
+/* Dòng chữ hướng dẫn lật sách hai bên (Giữ nguyên trên máy tính) */
 .sb-hint-left, .sb-hint-right {
   position: absolute; 
-  bottom: -40px; /* Đẩy xuống phía dưới cuốn sách */
-  left: 50%;     /* Căn giữa */
-  transform: translateX(-50%); /* Cân đối chính giữa tuyệt đối */
+  top: 40px; 
   font-family: 'BienCuong', var(--display); 
   font-size: 18px; 
   font-style: normal; 
@@ -171,17 +145,15 @@ button{font:inherit}
   letter-spacing: .05em; 
   pointer-events: none; 
   z-index: 5; 
-  white-space: nowrap;
 }
+.sb-hint-left { left: 5%; transform: translateX(-15px); } 
+.sb-hint-right { right: 5%; transform: translateX(15px); }
 
-/* Ẩn bớt một bên hoặc gộp chung nếu bạn chỉ muốn hiện 1 dòng thông báo ở giữa */
-.sb-hint-right { display: none; } /* Ẩn bớt bên phải để chỉ hiển thị 1 câu hướng dẫn ở giữa */
-
-/* Cấu hình riêng cho điện thoại nếu cần */
+/* Chỉ thu nhỏ chữ khi xem trên điện thoại (màn hình dưới 640px) */
 @media (max-width: 640px) {
-  .sb-hint-left {
-    bottom: -30px;
-    font-size: 13px;
+  .sb-hint-left, .sb-hint-right {
+    font-size: 13px; /* Bạn có thể tăng giảm số 13px này cho vừa ý trên điện thoại */
+    top: 20px;       /* Điều chỉnh lại khoảng cách trên dưới nếu cần */
   }
 }
 /* mũi tên lật trang: nút tròn trắng, viền gradient khi rê chuột */
