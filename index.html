@@ -455,9 +455,41 @@ button{font:inherit}
 
 .foot{font-size:11.5px;letter-spacing:var(--track-caps);text-transform:uppercase;
   color:var(--ink-soft);text-align:center;padding-bottom:44px}
+  .music-toggle-btn {
+  position: fixed;
+  bottom: 30px; /* Cố định ở dưới cùng */
+  left: 30px;   /* Cố định ở góc trái */
+  z-index: 9999;
+  background: var(--grad); /* Dùng màu gradient hồng-xanh của bạn */
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.music-toggle-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
 </style>
 </head>
 <body>
+  <!-- Nguồn phát nhạc (ẩn) -->
+<audio id="bg-music" loop>
+  <!-- Nhớ đổi tên file music.mp3 cho khớp với file bạn tải lên -->
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Nút điều khiển nhạc -->
+<button id="music-toggle-btn" class="music-toggle-btn">
+  🎵 Bật nhạc
+</button>
 <div class="wash" aria-hidden="true"></div>
 <main class="page home">
 
@@ -1035,6 +1067,24 @@ function startIntro(){
   }
   setTimeout(startIntro,220);
 })();
+</script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const musicBtn = document.getElementById('music-toggle-btn');
+  const bgMusic = document.getElementById('bg-music');
+  let isPlaying = false;
+
+  musicBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      bgMusic.pause();
+      musicBtn.innerHTML = '🎵 Bật nhạc';
+    } else {
+      bgMusic.play();
+      musicBtn.innerHTML = '⏸ Tắt nhạc';
+    }
+    isPlaying = !isPlaying;
+  });
+});
 </script>
 </body>
 </html>
