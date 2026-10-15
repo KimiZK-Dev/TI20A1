@@ -158,25 +158,27 @@ button{font:inherit}
   position:relative;
   touch-action:pan-y;
 }
-  /* Dòng chữ hướng dẫn lật sách hai bên */
+  /* Dòng chữ hướng dẫn lật sách hai bên (Giữ nguyên trên máy tính) */
 .sb-hint-left, .sb-hint-right {
-  position: absolute;
+  position: absolute; 
   top: 40px; 
-  font-family: 'BienCuong', var(--display); /* Đổi font chữ ở đây */
-  font-size: 18px; /* Có thể tăng nhẹ kích thước vì font đặc biệt */
-  font-style: normal; /* Bỏ chữ nghiêng nếu font không hỗ trợ */
-  color: var(--pink-deep);
-  letter-spacing: .05em;
-  pointer-events: none;
-  z-index: 5;
+  font-family: 'BienCuong', var(--display); 
+  font-size: 18px; 
+  font-style: normal; 
+  color: var(--pink-deep); 
+  letter-spacing: .05em; 
+  pointer-events: none; 
+  z-index: 5; 
 }
-.sb-hint-left { 
-  left: 5%; 
-  transform: translateX(-15px); /* Kéo lùi sang trái 15px */
-} 
-.sb-hint-right { 
-  right: 5%; 
-  transform: translateX(15px); /* Kéo dịch nếu cần */
+.sb-hint-left { left: 5%; transform: translateX(-15px); } 
+.sb-hint-right { right: 5%; transform: translateX(15px); }
+
+/* Chỉ thu nhỏ chữ khi xem trên điện thoại (màn hình dưới 640px) */
+@media (max-width: 640px) {
+  .sb-hint-left, .sb-hint-right {
+    font-size: 13px; /* Bạn có thể tăng giảm số 13px này cho vừa ý trên điện thoại */
+    top: 20px;       /* Điều chỉnh lại khoảng cách trên dưới nếu cần */
+  }
 }
 /* mũi tên lật trang: nút tròn trắng, viền gradient khi rê chuột */
 .sb-arrow{
