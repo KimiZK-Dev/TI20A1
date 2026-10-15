@@ -481,7 +481,7 @@ button{font:inherit}
 </head>
 <body>
   <!-- Nguồn phát nhạc (ẩn) -->
-<audio id="bg-music" loop>
+<audio id="bg-music" loop autoplay>
   <!-- Nhớ đổi tên file music.mp3 cho khớp với file bạn tải lên -->
   <source src="2010.mp3" type="audio/mpeg">
 </audio>
@@ -1072,7 +1072,16 @@ function startIntro(){
 document.addEventListener('DOMContentLoaded', () => {
   const musicBtn = document.getElementById('music-toggle-btn');
   const bgMusic = document.getElementById('bg-music');
-  let isPlaying = false;
+  
+  // Vì có autoplay nên mặc định ban đầu là đang phát nhạc
+  let isPlaying = true;
+
+  // Cố gắng phát nhạc ngay khi load (đề phòng một số trình duyệt chặn)
+  bgMusic.play().catch(() => {
+    // Nếu trình duyệt chặn autoplay, cập nhật lại nút thành "Bật nhạc"
+    isPlaying = false;
+    musicBtn.innerHTML = '🎵 Bật nhạc';
+  });
 
   musicBtn.addEventListener('click', () => {
     if (isPlaying) {
