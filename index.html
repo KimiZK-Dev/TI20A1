@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chúc Mừng 20/10</title>
-<meta name="description" content="Bien Cuong, MayOre — Young Training Club">
+<meta name="description" content="Chúc các bạn nữ TI20A1 20-10">
 <style>
 @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:block;
   src:url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/embedded/60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d.woff2) format('woff2')}
@@ -125,15 +125,15 @@ button{font:inherit}
   padding:clamp(112px,13svh,152px) 0 clamp(72px,10svh,120px);
 }
 /* hoa lá trang trí: xoay tông màu sang hồng/xanh */
-.botany{
-  position:absolute;bottom:0;width:clamp(120px,15vw,250px);opacity:.55;
-  pointer-events:none;user-select:none;z-index:0;
-  filter:hue-rotate(150deg) saturate(1.6);
+.botany {
+    width: clamp(100px, 15vw, 200px); 
+    height: auto;
+    float: left; /* Cực kỳ quan trọng: giúp chữ bao quanh ảnh */
+    margin-right: 20px; /* Cách chữ ra một chút cho đẹp */
+    margin-bottom: 10px;
+    opacity: 0.9;
 }
-.botany.l{left:clamp(-40px,-1vw,0px);bottom:2%}
-.botany.r{right:clamp(-30px,0vw,10px);bottom:-2%;width:clamp(100px,12vw,200px);filter:hue-rotate(260deg) saturate(1.6)}
-@media (max-width:900px){.botany{display:none}}
-
+/* Nhớ xóa hoặc vô hiệu hóa .botany.l và .botany.r cũ đi nhé */
 /* Dòng chữ nhỏ trên cùng: dạng "viên thuốc" gradient */
 .hero-kicker{
   font-size:12px;font-weight:500;letter-spacing:var(--track-caps);text-align:center;
