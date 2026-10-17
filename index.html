@@ -2764,6 +2764,42 @@ document.getElementById('enter-btn')?.addEventListener('click', function () {
   if (music) music.play().catch(() => {});
 });
 </script>
+<script>
+  let isScrolling = true; // Mặc định là cho phép cuộn
+  let scrollSpeed = 1;    // Tốc độ cuộn (tăng số này nếu muốn cuộn nhanh hơn)
 
+  function autoScrollDown() {
+    if (isScrolling) {
+      window.scrollBy(0, scrollSpeed);
+      
+      // Nếu cuộn đến cuối trang thì tự động dừng
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        isScrolling = false;
+      }
+    }
+    // Duy trì vòng lặp mượt mà
+    requestAnimationFrame(autoScrollDown);
+  }
+
+  // Đợi 2 giây sau khi tải trang xong mới bắt đầu cuộn
+  setTimeout(() => {
+    requestAnimationFrame(autoScrollDown);
+  }, 2000);
+
+  // 1. Dành cho máy tính: Click chuột vào màn hình để Bật/Tắt trôi
+  document.addEventListener('click', function(event) {
+    // Nếu bạn có nút bấm nhạc, không làm ảnh hưởng đến nút đó
+    if (!event.target.closest('.btn-wrapper')) {
+      isScrolling = !isScrolling; // Đang chạy thì dừng, đang dừng thì chạy lại
+    }
+  });
+
+  // 2. Dành cho điện thoại: Chạm tay vào màn hình vuốt là dừng trôi ngay lập tức
+  document.addEventListener('touchstart', function(event) {
+    if (!event.target.closest('.btn-wrapper')) {
+      isScrolling = false; 
+    }
+  });
+</script>
 </body>
 </html>
